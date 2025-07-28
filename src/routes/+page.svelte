@@ -696,7 +696,7 @@
             flex-wrap: wrap;
             justify-content: center;
             align-items: center;
-            gap: 4px; /* Reducido el espacio entre las tarjetas */
+            gap: 8px; /* Reducido el espacio entre las tarjetas */
             padding-bottom: 0;
             overflow-x: unset !important;
             width: 100%;
@@ -706,26 +706,28 @@
         .pokemon-card {
             max-width: 100%;
             min-width: 0;
-            padding: 1px; /* Reducido el padding */
+            padding: 5px; /* Reducido el padding */
             border-radius: 12px; /* Reducido el border-radius */
         }
 
         .individual-form {
             max-width: 50px; /* Reducido el ancho máximo */
-            min-width: 0;
-            padding: 10px; /* Reducido el padding */
-            font-size: 0.50em; /* Reducido el tamaño de la fuente */
-            height: 60px; /* Limita la altura total de la card */
+            min-width: 60;
+            padding: 16px; /* Reducido el padding */
+            font-size: 0.60em; /* Reducido el tamaño de la fuente */
+            height: 70px; /* Limita la altura total de la card */
+            font-weight: bold;
         }
 
         .pm-img {
-            width: 40px; /* Reducido el ancho de la imagen */
-            height: 40px; /* Reducido la altura de la imagen */
+            width: 120px;
+            height: 120px;
+            
         }
 
         .individual-form p {
-            font-size: 0.7em; /* Reducido el tamaño de la fuente */
-            max-width: 60px; /* Reducido el ancho máximo */
+            font-size: 0.85em; /* Reducido el tamaño de la fuente */
+            max-width: 200px; /* Reducido el ancho máximo */
         }
 
         .dex-number {
@@ -800,5 +802,10 @@
             font-size: 1.5em;
         }
         .counter-label br { display: inline; }
+        /* Agranda solo la imagen del Pokémon central en cada fila */
+        .forms-container .individual-form:nth-child(5) .pm-img {
+            width: 200px !important;
+            height: 200px !important;
+        }
     }
 </style>
