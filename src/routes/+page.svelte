@@ -14,14 +14,17 @@
 
         // Función para guardar el estado actual de los Pokémon en localStorage
         function savePokemonState() {
+            if (!username) return; // No guardar si no hay username
             const savedState = {};
             pokemonFamilies.forEach(family => {
                 family.pms.forEach(pm => {
                     savedState[pm.id] = pm.hasShiny;
                 });
             });
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(savedState));
-            console.log('Estado de Pokémon guardado en localStorage.');
+            localStorage.setItem(`shinyPokemonList_${username}`, JSON.stringify(savedState));
+            // Opcional: también guarda el username actual
+            localStorage.setItem('username', username);
+            console.log(`Estado de Pokémon guardado para ${username}.`);
         }
 
         onMount(() => {
@@ -29,9 +32,8 @@
             // ¡Importante! Clonar los datos para asegurar que no mutamos la fuente original
             // y para permitir la reactividad de Svelte sobre este nuevo array.
             let initialData = JSON.parse(JSON.stringify(processedPokemonData));
-
-            // Intentar cargar el estado guardado de localStorage
-            const savedState = localStorage.getItem(LOCAL_STORAGE_KEY);
+            // Usa el username actual para buscar el progreso
+            const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
             if (savedState) {
                 const parsedState = JSON.parse(savedState);
                 initialData.forEach(family => {
@@ -41,11 +43,8 @@
                         }
                     });
                 });
-                console.log('Estado de Pokémon cargado desde localStorage.');
+                console.log(`Estado de Pokémon cargado para ${username}.`);
             }
-
-            // Asignar los datos iniciales (con o sin estado guardado).
-            // Esta asignación inicial disparará el filtro reactivo.
             pokemonFamilies = initialData;
             console.log('Componente principal montado y pokemonFamilies inicializados.');
         });
@@ -189,10 +188,85 @@
                 selectedGenerations = [1,2,3,4,5,6,7,8,9];
             }
         }
+
+        let username = '';
+
+        onMount(() => {
+            // Solo aquí puedes usar localStorage
+            username = localStorage.getItem('username') || '';
+        });
+
+        $: if (typeof window !== 'undefined' && username) {
+    // Guarda el username actual
+    localStorage.setItem('username', username);
+
+    // Carga el progreso del usuario si existe
+    const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
+    if (savedState) {
+        const parsedState = JSON.parse(savedState);
+        // Actualiza pokemonFamilies con el progreso guardado
+        pokemonFamilies = pokemonFamilies.map(family => ({
+            ...family,
+            pms: family.pms.map(pm => ({
+                ...pm,
+                hasShiny: parsedState[pm.id] !== undefined ? parsedState[pm.id] : pm.hasShiny
+            }))
+        }));
+    } else {
+        // Si no hay progreso, limpia todos los hasShiny
+        pokemonFamilies = pokemonFamilies.map(family => ({
+            ...family,
+            pms: family.pms.map(pm => ({
+                ...pm,
+                hasShiny: false
+            }))
+        }));
+    }
+}
+
+function exportarProgreso() {
+    if (!username) return alert('Primero ingresa un nickname.');
+    const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
+    if (!savedState) return alert('No hay progreso para exportar.');
+    const blob = new Blob([savedState], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `shiny_progress_${username}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+}
+
+function importarProgreso(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target.result);
+            localStorage.setItem(`shinyPokemonList_${username}`, JSON.stringify(data));
+            location.reload();
+        } catch {
+            alert('Archivo inválido.');
+        }
+    };
+    reader.readAsText(file);
+}
     </script>
 
     <main>
         <h1> Pokémon Shiny Check List✨</h1>
+        <div class="username-container">
+            <label for="username">Nickname:</label>
+            <input
+                id="username"
+                type="text"
+                bind:value={username}
+                class="username-input"
+                maxlength="20"
+                placeholder="Any Nickname"
+            />
+        </div>
         <div class="sticky-header" class:scrolled={scrolled}>
             <div class="search-container">
                 <input
@@ -295,12 +369,21 @@
     </button>
     {#if showMenu}
         <div class="menu-dropdown">
-           <!-- <label>
-                 <input type="checkbox" bind:checked={darkMode} /> -->
-         <!-- </div>
-            </label> -->
-            <!-- Puedes agregar más opciones aquí -->
-        </div>
+    <ul class="menu-list">
+        <li>
+            <button class="menu-action-btn" on:click={exportarProgreso}>
+                📤 Exportar 
+            </button>
+        </li>
+        <li>
+            <label class="menu-action-btn" style="display:block; cursor:pointer;">
+                📥 Importar 
+                <input type="file" accept="application/json" on:change={importarProgreso} style="display:none;" />
+            </label>
+        </li>
+    </ul>
+</div>
+    <div class="menu-overlay" on:click={() => showMenu = false}></div>
     {/if}
 </div>
     </main>
@@ -624,6 +707,16 @@
             pointer-events: none;
         }
 
+        .menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: transparent; /* O usa rgba(0,0,0,0.01) si quieres que bloquee clicks pero no oscurezca */
+            z-index: 2999;
+        }
+
         /* Asegúrate que individual-form sea relative para el posicionamiento absoluto */
         .individual-form {
         position: relative;
@@ -657,9 +750,41 @@
         .menu-dropdown { /* Menú desplegable */
             margin-top: 10px;
             background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+            padding: 18px 16px;
+            min-width: 180px;
+        }
+        .menu-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .menu-action-btn {
+            width: 100%;
+            background: #f5f5f5;
+            color: #2c3e50;
+            border: none;
             border-radius: 8px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
-            padding: 12px;
+            padding: 10px 0;
+            font-size: 1em;
+            font-family: inherit;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+            text-align: left;
+            display: block;
+        }
+
+        .menu-action-btn:hover,
+        .menu-action-btn:focus {
+            background: #e0e6eb;
+            color: #2980b9;
+            outline: none;
         }
         body.dark { /* Modo oscuro para el body */
             background: #181818;
@@ -672,6 +797,30 @@
             height: 3px;
             background: #000000;
             border-radius: 2px;
+        }
+        
+        .username-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border-radius: 30px; /* Reducido el border-radius */
+            color: #272626;
+            
+        }
+
+        .username-input {
+            font-size: 1.1em;
+            font-weight: bold;
+            padding: 4px;
+            border-radius: 10px; /* Reducido el border-radius */
+            color: #b03636;
+            background: #fcfcfccb;
+            border: 2px solid #bb9962;
+        
         }
 
             
@@ -803,6 +952,34 @@
             }
             .counter-label br { display: inline; 
             }
+            .username-container {
+                padding: 4px;
+                margin-bottom: 9px;
+                max-width: 98vw;
+                font-size: 0.85em;
+                
+            }
+
+            .username-input {
+                width: 40vw;
+                font-size: 0.7em;
+                padding: 4px;
+
+            }
+
+            .menu-dropdown {
+                min-width: 120px;
+                padding: 8px 6px;
+                border-radius: 8px;
+            }
+            .menu-list {
+                gap: 6px;
+            }
+            .menu-action-btn {
+                font-size: 0.85em;
+                padding: px 0;
+                border-radius: 6px;
+            }
         }
-    
-</style>
+
+    </style>
