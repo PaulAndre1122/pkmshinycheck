@@ -673,6 +673,7 @@
             background: #000000;
             border-radius: 2px;
         }
+
             
         @keyframes shiny-glow {
             0% {
@@ -690,122 +691,118 @@
             animation: shiny-glow 0.7s;
         }
 
-        @media (max-width: 600px) {
-        .forms-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 8px; /* Reducido el espacio entre las tarjetas */
-            padding-bottom: 0;
-            overflow-x: unset !important;
-            width: 100%;
-            max-width: 100%;
-        }
+        @media (max-width: 700px) {
+            .forms-container {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                align-items: center;
+                gap: 8px; /* Reducido el espacio entre las tarjetas */
+                padding-bottom: 0;
+                overflow-x: unset !important;
+                width: 100%;
+                max-width: 100%;
+            }
 
-        .pokemon-card {
-            max-width: 100%;
-            min-width: 0;
-            padding: 5px; /* Reducido el padding */
-            border-radius: 12px; /* Reducido el border-radius */
-        }
+            .pokemon-card {
+                max-width: 100%;
+                min-width: 0;
+                padding: 5px; /* Reducido el padding */
+                border-radius: 12px; /* Reducido el border-radius */
+            }
 
-        .individual-form {
-            max-width: 50px; /* Reducido el ancho máximo */
-            min-width: 60;
-            padding: 16px; /* Reducido el padding */
-            font-size: 0.60em; /* Reducido el tamaño de la fuente */
-            height: 70px; /* Limita la altura total de la card */
-            font-weight: bold;
-        }
+            .individual-form {
+                max-width: 80px;
+                min-width: 100px;
+                height: 125px;
+                padding: 10px;
+            }
+            .pm-img {
+                width: 100px !important;
+                height: 100px !important;
+                max-width: 200%;
+                max-height: 00%;
+            }
 
-        .pm-img {
-            width: 120px;
-            height: 120px;
-            
-        }
+            .individual-form p {
+                font-size: 0.85em; /* Reducido el tamaño de la fuente */
+                max-width: 200px; /* Reducido el ancho máximo */
+                font-weight: bold;
+            }
 
-        .individual-form p {
-            font-size: 0.85em; /* Reducido el tamaño de la fuente */
-            max-width: 200px; /* Reducido el ancho máximo */
-        }
-
-        .dex-number {
-        font-size: 0.7em;
-        padding: 1px 5px;
-        top: 4px;
-        right: 6px;
-        
-        }
-        h1 {
-            font-size: 1.19em;
-            margin-top: 12px;
-            margin-bottom: 10px;
-        }
-        .search-container {
-            padding: 4px;
-            margin-bottom: 9px;
-            max-width: 98vw;
-        }
-        .search-input {
-            width: 40vw;
-            font-size: 0.5em;
-            padding: 4px;
-        }
-        .counter-bar {
-            gap: 10px;
-            font-size: 0.9em;
-            padding: 4px 0;
-            margin-bottom: 10px;
-        }
-        .counter-number {
-            font-size: 1.2em;
-        }
-        .counter-label {
-            text-align: center;
-            width: 100%;
-            font-size: 0.5em;
-        }
-        .generation-filter {
+            .dex-number {
             font-size: 0.7em;
-            padding: 6px;
-            margin-bottom: 18px;
-            max-width: 98vw;
-        
+            padding: 1px 5px;
+            top: 4px;
+            right: 6px;
+            
+            }
+            h1 {
+                font-size: 1.19em;
+                margin-top: 12px;
+                margin-bottom: 10px;
+            }
+            .search-container {
+                padding: 4px;
+                margin-bottom: 9px;
+                max-width: 98vw;
+            }
+            .search-input {
+                width: 40vw;
+                font-size: 0.5em;
+                padding: 4px;
+            }
+            .counter-bar {
+                gap: 10px;
+                font-size: 0.9em;
+                padding: 4px 0;
+                margin-bottom: 10px;
+            }
+            .counter-number {
+                font-size: 1.2em;
+            }
+            .counter-label {
+                text-align: center;
+                width: 100%;
+                font-size: 0.5em;
+            }
+            .generation-filter {
+                font-size: 0.7em;
+                padding: 6px;
+                margin-bottom: 18px;
+                max-width: 98vw;
+            
+            }
+            .generation-filter label {
+                margin-right: 6px;
+                font-size: 0.90em;
+            }
+            .generation-filter input {
+                transform: scale(0.90);
+            }
+            .menu-container {
+                top: 10px;
+                left: 5px;
+            }
+            .menu-btn {
+                padding: 6px;
+            }
+            .menu-icon {
+                width: 22px;
+                height: 22px;
+                gap: 3px;
+            }
+            .menu-icon span {
+                width: 16px;
+                height: 2px;
+            }
+            .scroll-to-top {
+                right: 10px;
+                bottom: 10px;
+                font-size: 1.5em;
+            }
+            .counter-label br { display: inline; 
+            }
         }
-        .generation-filter label {
-            margin-right: 6px;
-            font-size: 0.90em;
-        }
-        .generation-filter input {
-            transform: scale(0.90);
-        }
-        .menu-container {
-            top: 10px;
-            left: 5px;
-        }
-        .menu-btn {
-            padding: 6px;
-        }
-        .menu-icon {
-            width: 22px;
-            height: 22px;
-            gap: 3px;
-        }
-        .menu-icon span {
-            width: 16px;
-            height: 2px;
-        }
-        .scroll-to-top {
-            right: 10px;
-            bottom: 10px;
-            font-size: 1.5em;
-        }
-        .counter-label br { display: inline; }
-        /* Agranda solo la imagen del Pokémon central en cada fila */
-        .forms-container .individual-form:nth-child(5) .pm-img {
-            width: 200px !important;
-            height: 200px !important;
-        }
-    }
+    
 </style>
