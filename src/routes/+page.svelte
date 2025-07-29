@@ -49,6 +49,44 @@
             console.log('Componente principal montado y pokemonFamilies inicializados.');
         });
 
+
+
+        function exportarProgreso() {
+            if (!username) return alert('Primero ingresa un nickname.');
+            const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
+            if (!savedState) return alert('No hay progreso para exportar.');
+            const blob = new Blob([savedState], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `shiny_progress_${username}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importarProgreso(event) {
+            if (!username) return alert('Primero ingresa un nickname.');
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (typeof data !== 'object' || Array.isArray(data)) {
+                        alert('Archivo inválido.');
+                        return;
+                    }
+                    localStorage.setItem(`shinyPokemonList_${username}`, JSON.stringify(data));
+                    alert('¡Progreso importado! Recargando...');
+                    location.reload();
+                } catch {
+                    alert('Archivo inválido.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+
                 // Agrupa las formas por especie (dex)
         function groupByDex(pmsArray) {
             const grouped = {};
@@ -223,35 +261,6 @@
         }));
     }
 }
-
-function exportarProgreso() {
-    if (!username) return alert('Primero ingresa un nickname.');
-    const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
-    if (!savedState) return alert('No hay progreso para exportar.');
-    const blob = new Blob([savedState], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `shiny_progress_${username}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-}
-
-function importarProgreso(event) {
-    const file = event.target.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = (e) => {
-        try {
-            const data = JSON.parse(e.target.result);
-            localStorage.setItem(`shinyPokemonList_${username}`, JSON.stringify(data));
-            location.reload();
-        } catch {
-            alert('Archivo inválido.');
-        }
-    };
-    reader.readAsText(file);
-}
     </script>
 
     <main>
@@ -368,22 +377,45 @@ function importarProgreso(event) {
         </span> 
     </button>
     {#if showMenu}
+        <div
+            class="menu-backdrop"
+            tabindex="0"
+            aria-label="Cerrar menú"
+            role="button"
+            on:click={() => showMenu = false}
+            on:keydown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') showMenu = false;
+            }}
+        ></div>
+    {/if}
+
+    <div class="menu-container" on:click|stopPropagation>
+        {#if showMenu}
         <div class="menu-dropdown">
-    <ul class="menu-list">
-        <li>
-            <button class="menu-action-btn" on:click={exportarProgreso}>
-                📤 Exportar 
-            </button>
-        </li>
-        <li>
-            <label class="menu-action-btn" style="display:block; cursor:pointer;">
-                📥 Importar 
-                <input type="file" accept="application/json" on:change={importarProgreso} style="display:none;" />
-            </label>
-        </li>
-    </ul>
-</div>
-    <div class="menu-overlay" on:click={() => showMenu = false}></div>
+           <!-- <label>
+                 <input type="checkbox" bind:checked={darkMode} /> -->
+         <!-- </div>
+            </label> -->
+            <!-- Puedes agregar más opciones aquí -->
+            <ul style="list-style:none; padding:0; margin:0;">
+    <li>
+        <button on:click={exportarProgreso} style="width:100%;text-align:left;cursor:pointer;">
+            📤 Exportar
+        </button>
+    </li>
+    <li>
+        <label style="width:100%;display:block;cursor:pointer;position:relative;">
+            📥 Importar
+            <input
+                type="file"
+                accept="application/json"
+                on:change={importarProgreso}
+                style="position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:2;"
+            />
+        </label>
+    </li>
+</ul>
+        </div>
     {/if}
 </div>
     </main>
@@ -707,16 +739,6 @@ function importarProgreso(event) {
             pointer-events: none;
         }
 
-        .menu-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: transparent; /* O usa rgba(0,0,0,0.01) si quieres que bloquee clicks pero no oscurezca */
-            z-index: 2999;
-        }
-
         /* Asegúrate que individual-form sea relative para el posicionamiento absoluto */
         .individual-form {
         position: relative;
@@ -748,43 +770,11 @@ function importarProgreso(event) {
             height: 32px;
         }
         .menu-dropdown { /* Menú desplegable */
-            margin-top: 10px;
+            margin-top: 60px;
             background: #fff;
-            border-radius: 12px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-            padding: 18px 16px;
-            min-width: 180px;
-        }
-        .menu-list {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .menu-action-btn {
-            width: 100%;
-            background: #f5f5f5;
-            color: #2c3e50;
-            border: none;
             border-radius: 8px;
-            padding: 10px 0;
-            font-size: 1em;
-            font-family: inherit;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s, color 0.2s;
-            text-align: left;
-            display: block;
-        }
-
-        .menu-action-btn:hover,
-        .menu-action-btn:focus {
-            background: #e0e6eb;
-            color: #2980b9;
-            outline: none;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            padding: 19px;
         }
         body.dark { /* Modo oscuro para el body */
             background: #181818;
@@ -822,6 +812,52 @@ function importarProgreso(event) {
             border: 2px solid #bb9962;
         
         }
+
+        .menu-backdrop {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: transparent;
+            z-index: 2999;
+        }
+
+        .menu-dropdown button,
+        .menu-dropdown label {
+            background: #fff;
+            border: 2px solid #bb9962;
+            border-radius: 8px;
+            color: #2c3e50;
+            font-size: 1.0em;
+            font-family: 'Open Sans', sans-serif;
+            padding: 7px 5px;
+            margin-bottom: 8px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            cursor: pointer;
+            outline: none;
+            display: block;
+            width: 100%;
+        }
+
+        .menu-dropdown button:hover,
+        .menu-dropdown label:hover {
+            border-color: #2980b9;
+            box-shadow: 0 4px 16px rgba(52,152,219,0.10);
+            background: #f8fafc;
+        }
+
+        .menu-dropdown label input[type="file"] {
+            display: none;
+        }
+
+        .menu-dropdown ul {
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu-dropdown li {
+            margin-bottom: 6px;
+        }
+
 
             
         @keyframes shiny-glow {
@@ -964,21 +1000,8 @@ function importarProgreso(event) {
                 width: 40vw;
                 font-size: 0.7em;
                 padding: 4px;
-
-            }
-
-            .menu-dropdown {
-                min-width: 120px;
-                padding: 8px 6px;
                 border-radius: 8px;
-            }
-            .menu-list {
-                gap: 6px;
-            }
-            .menu-action-btn {
-                font-size: 0.85em;
-                padding: px 0;
-                border-radius: 6px;
+
             }
         }
 
