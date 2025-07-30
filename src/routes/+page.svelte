@@ -820,15 +820,16 @@
             z-index: 2999;
         }
 
+        /* --- ESTILO GENERAL PARA AMBOS BOTONES EN EL MENÚ --- */
         .menu-dropdown button,
         .menu-dropdown label {
             background: #fff;
             border: 2px solid #bb9962;
             border-radius: 8px;
             color: #2c3e50;
-            font-size: 1.0em;
+            font-size: 1em;
             font-family: 'Open Sans', sans-serif;
-            padding: 7px 5px;
+            padding: 7px 12px;
             margin-bottom: 8px;
             transition: border-color 0.2s, box-shadow 0.2s;
             box-shadow: 0 2px 8px rgba(0,0,0,0.06);
@@ -836,6 +837,13 @@
             outline: none;
             display: block;
             width: 100%;
+            max-width: 180px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+
+
         }
 
         .menu-dropdown button:hover,
@@ -1002,6 +1010,37 @@
                 padding: 4px;
                 border-radius: 8px;
 
+            }
+
+            .menu-dropdown {
+                margin-top: 36px;
+                padding: 8px;
+                min-width: 90px;
+                max-width: 160px;
+                font-size: 0.85em;
+                box-sizing: border-box;
+            }
+            .menu-dropdown button,
+            .menu-dropdown label {
+                font-size: 0.85em;
+                padding: 5px 8px;
+                border-radius: 6px;
+                margin-bottom: 4px;
+                width: 100%;
+                box-sizing: border-box;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+            .menu-dropdown label {
+                position: relative;
+            }
+            .menu-dropdown label input[type="file"] {
+                position: absolute;
+                left: 0; top: 0; width: 100%; height: 100%;
+                opacity: 0;
+                cursor: pointer;
+                z-index: 2;
             }
         }
 
