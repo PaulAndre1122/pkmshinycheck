@@ -1,3 +1,5 @@
+ya con la mandera de importar y exportar 
+
 <script>
         import { onMount } from 'svelte';
         import { processedPokemonData } from '$lib/data/pms.js';
@@ -281,7 +283,7 @@ async function generarEnlaceCompartir() {
     const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
 
     try {
-        const res = await fetch(`/api/tinyurl?url=${encodeURIComponent(url)}`);
+        const res = await fetch(`/api/bitly?url=${encodeURIComponent(url)}`);
         const data = await res.json();
         shortLink = data.link || url;
         await navigator.clipboard.writeText(shortLink);
@@ -448,7 +450,7 @@ async function generarEnlaceCompartir() {
     </li>
     <li>
         <button on:click={generarEnlaceCompartir} style="width:100%;text-align:left;cursor:pointer;">
-            📎 Compartir 
+            🔗 Compartir
         </button>
     </li>
 </ul>
@@ -456,6 +458,9 @@ async function generarEnlaceCompartir() {
     {/if}
 </div>
     </main>
+{#if shareMsg}
+    <div class="share-toast">{shareMsg}</div>
+{/if}
 
 
     <style>
@@ -903,21 +908,19 @@ async function generarEnlaceCompartir() {
             margin-bottom: 6px;
         }
 
-        .share-toast {
-            position: fixed;
-            top: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: #2980b9;
-            color: #fff;
-            padding: 12px 24px;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
-            z-index: 4000;
-            font-size: 1.1em;
-        }
-
-
+.share-toast {
+    position: fixed;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2980b9;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+    z-index: 4000;
+    font-size: 1.1em;
+}
             
         @keyframes shiny-glow {
             0% {
@@ -1096,6 +1099,3 @@ async function generarEnlaceCompartir() {
         }
 
     </style>
-{#if shareMsg}
-    <div class="share-toast">{shareMsg}</div>
-{/if}
