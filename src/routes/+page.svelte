@@ -74,24 +74,19 @@
             const encoded = btoa(unescape(encodeURIComponent(savedState)));
             const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
 
-            // Intenta acortar el enlace
+            // Intenta acortar el enlace con Bitly
             let shortLink = url;
             try {
-                const res = await fetch(`https://api.tinyurl.com/create`, {
+                const res = await fetch('https://api-ssl.bitly.com/v4/shorten', {
                     method: 'POST',
                     headers: {
-                        'accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        // Reemplaza con tu token de TinyURL
-                        'Authorization': 'Bearer AC2RGsGElSKZCHHB73CO9GQxYdP7xKD7z6rgm4dyl6NGrt3PZZvVyg4X9GSv'
+                        'Authorization': 'Bearer 4e4ed3dc0766d7f94e23685703acf02abde7669e',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        url,
-                        domain: 'tinyurl.com'
-                    })
+                    body: JSON.stringify({ long_url: url })
                 });
                 const data = await res.json();
-                shortLink = data.data?.tiny_url || url;
+                shortLink = data.link || url;
             } catch {
                 shortLink = url; // Si falla, usa el largo
             }
