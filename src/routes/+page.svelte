@@ -73,10 +73,32 @@
             if (!savedState) return alert('No hay progreso para compartir.');
             const encoded = btoa(unescape(encodeURIComponent(savedState)));
             const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
-            navigator.clipboard.writeText(url);
+
+            // Intenta acortar el enlace
+            let shortLink = url;
+            try {
+                const res = await fetch(`https://api.tinyurl.com/create`, {
+                    method: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        // Reemplaza con tu token de TinyURL
+                        'Authorization': 'AC2RGsGElSKZCHHB73CO9GQxYdP7xKD7z6rgm4dyl6NGrt3PZZvVyg4X9GSv'
+                    },
+                    body: JSON.stringify({
+                        url,
+                        domain: 'tinyurl.com'
+                    })
+                });
+                const data = await res.json();
+                shortLink = data.data?.tiny_url || url;
+            } catch {
+                shortLink = url; // Si falla, usa el largo
+            }
+
+            navigator.clipboard.writeText(shortLink);
             shareMsg = '¡Enlace copiado!';
             setTimeout(() => shareMsg = '', 2000);
-            // No mostramos el enlace aquí, solo el toast
         }
 
         async function mostrarEnlace() {
@@ -451,11 +473,6 @@
     <div class="menu-container" on:click|stopPropagation>
         {#if showMenu}
         <div class="menu-dropdown">
-           <!-- <label>
-                 <input type="checkbox" bind:checked={darkMode} /> -->
-         <!-- </div>
-            </label> -->
-            <!-- Puedes agregar más opciones aquí -->
             <ul style="list-style:none; padding:0; margin:0;">
     <li>
         <button on:click={exportarProgreso} style="width:100%;text-align:left;cursor:pointer;">
