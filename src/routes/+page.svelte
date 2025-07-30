@@ -83,7 +83,7 @@
                         'accept': 'application/json',
                         'Content-Type': 'application/json',
                         // Reemplaza con tu token de TinyURL
-                        'Authorization': 'Bearer '
+                        'Authorization': `Bearer ${process.env.TINYURL_TOKEN}`
                     },
                     body: JSON.stringify({
                         url,
