@@ -4,6 +4,9 @@ ya con la mandera de importar y exportar
         import { onMount } from 'svelte';
         import { processedPokemonData } from '$lib/data/pms.js';
         import Img from '$lib/components/Img.svelte';
+        import LZString from 'lz-string';
+
+        
 
         let searchTerm = ''; // Variable reactiva para el texto de búsqueda
         let pokemonFamilies = []; // Contiene todos los datos de Pokémon, incluyendo el estado de hasShiny
@@ -267,34 +270,52 @@ ya con la mandera de importar y exportar
 let shareMsg = '';
 let shortLink = '';
 
-async function generarEnlaceCompartir() {
-    if (!username) {
-        shareMsg = 'Primero ingresa un nickname.';
-        setTimeout(() => shareMsg = '', 2000);
-        return;
-    }
-    const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
-    if (!savedState) {
-        shareMsg = 'No hay progreso para compartir.';
-        setTimeout(() => shareMsg = '', 2000);
-        return;
-    }
-    const encoded = btoa(unescape(encodeURIComponent(savedState)));
-    const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
+        async function generarEnlaceCompartir() {
+            if (!username) {
+                shareMsg = 'Primero ingresa un nickname.';
+                setTimeout(() => shareMsg = '', 2000);
+                return;
+            }
+            const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
+            if (!savedState) {
+                shareMsg = 'No hay progreso para compartir.';
+                setTimeout(() => shareMsg = '', 2000);
+                return;
+            }
+            // Comprime y codifica el progreso
+            const compressed = LZString.compressToEncodedURIComponent(savedState);
+            const url = `${location.origin}${location.pathname}?shiny=${compressed}`;
 
-    try {
-        const res = await fetch(`/api/bitly?url=${encodeURIComponent(url)}`);
-        const data = await res.json();
-        shortLink = data.link || url;
-        await navigator.clipboard.writeText(shortLink);
-        shareMsg = '¡Enlace copiado!';
-    } catch (e) {
-        shortLink = url;
-        await navigator.clipboard.writeText(shortLink);
-        shareMsg = 'No se pudo acortar, pero el enlace largo fue copiado.';
+            try {
+                const res = await fetch(`/api/bitly?url=${encodeURIComponent(url)}`);
+                const data = await res.json();
+                shortLink = data.link || url;
+                await navigator.clipboard.writeText(shortLink);
+                shareMsg = '¡Enlace copiado!';
+            } catch (e) {
+                shortLink = url;
+                await navigator.clipboard.writeText(shortLink);
+                shareMsg = 'No se pudo acortar, pero el enlace largo fue copiado.';
+            }
+            setTimeout(() => shareMsg = '', 2000);
+        }
+
+        onMount(() => {
+    const params = new URLSearchParams(window.location.search);
+    const shinyParam = params.get('shiny');
+    if (shinyParam) {
+        try {
+            const decompressed = LZString.decompressFromEncodedURIComponent(shinyParam);
+            if (decompressed) {
+                localStorage.setItem(`shinyPokemonList_${username}`, decompressed);
+                alert('¡Progreso importado desde el enlace!');
+                location.replace(location.pathname); // Limpia la URL
+            }
+        } catch {
+            alert('El enlace de progreso es inválido.');
+        }
     }
-    setTimeout(() => shareMsg = '', 2000);
-}
+});
     </script>
 
     <main>
