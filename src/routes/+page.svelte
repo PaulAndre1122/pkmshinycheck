@@ -83,7 +83,7 @@
                         'accept': 'application/json',
                         'Content-Type': 'application/json',
                         // Reemplaza con tu token de TinyURL
-                        'Authorization': 'Bearer AC2RGsGElSKZCHHB73CO9GQxYdP7xKD7z6rgm4dyl6NGrt3PZZvVyg4X9GSv'
+                        'Authorization': 'Bearer '
                     },
                     body: JSON.stringify({
                         url,
@@ -117,7 +117,7 @@
                         'accept': 'application/json',
                         'Content-Type': 'application/json',
                         // Puedes obtener un token gratis en tinyurl.com/app/dev
-                        'Authorization': 'Bearer AC2RGsGElSKZCHHB73CO9GQxYdP7xKD7z6rgm4dyl6NGrt3PZZvVyg4X9GSv'
+                        'Authorization': 'Bearer '
                     },
                     body: JSON.stringify({
                         url,
