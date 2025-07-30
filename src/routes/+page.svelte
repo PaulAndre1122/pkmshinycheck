@@ -80,7 +80,7 @@
                 const res = await fetch('https://api-ssl.bitly.com/v4/shorten', {
                     method: 'POST',
                     headers: {
-                        'Authorization': '4e4ed3dc0766d7f94e23685703acf02abde7669e',
+                        'Authorization': 'Bearer 4e4ed3dc0766d7f94e23685703acf02abde7669e',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ long_url: url })
@@ -108,7 +108,7 @@
                 const res = await fetch('https://api-ssl.bitly.com/v4/shorten', {
                     method: 'POST',
                     headers: {
-                        'Authorization': '4e4ed3dc0766d7f94e23685703acf02abde7669e',
+                        'Authorization': 'Bearer 4e4ed3dc0766d7f94e23685703acf02abde7669e',
                         'Content-Type': 'application/json'
                     },
                     body: JSON.stringify({ long_url: url })
