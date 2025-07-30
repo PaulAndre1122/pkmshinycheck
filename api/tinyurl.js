@@ -7,7 +7,7 @@ export default async function handler(req, res) {
             headers: {
                 'accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer C2sK6WYJsny9qCXYGo8iInWuq9Je5cvcVhBZqmFtiOrOc7KKX0k6TteRSUlp'
+                'Authorization': `Bearer ${process.env.TINYURL_TOKEN}`
             },
             body: JSON.stringify({
                 url,

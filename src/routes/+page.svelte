@@ -47,90 +47,9 @@
             }
             pokemonFamilies = initialData;
             console.log('Componente principal montado y pokemonFamilies inicializados.');
-            // Si hay progreso en la URL, lo carga
-            const params = new URLSearchParams(window.location.search);
-            const shinyParam = params.get('shiny');
-            if (shinyParam) {
-                try {
-                    const decoded = decodeURIComponent(escape(atob(shinyParam)));
-                    localStorage.setItem(`shinyPokemonList_${username}`, decoded);
-                    alert('¡Progreso importado desde el enlace!');
-                    location.replace(location.pathname); // Limpia la URL
-                } catch {
-                    alert('El enlace de progreso es inválido.');
-                }
-            }
         });
 
-        let shareMsg = '';
-        let showLinkModal = false;
-        let shortUrl = '';
-        let loadingShort = false;
 
-        async function compartirProgreso() {
-            if (!username) return alert('Primero ingresa un nickname.');
-            const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
-            if (!savedState) return alert('No hay progreso para compartir.');
-            const encoded = btoa(unescape(encodeURIComponent(savedState)));
-            const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
-
-            // Intenta acortar el enlace
-            let shortLink = url;
-            try {
-                const res = await fetch(`https://api.tinyurl.com/create`, {
-                    method: 'POST',
-                    headers: {
-                        'accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        // Reemplaza con tu token de TinyURL
-                        'Authorization': `Bearer ${process.env.TINYURL_TOKEN}`
-                    },
-                    body: JSON.stringify({
-                        url,
-                        domain: 'tinyurl.com'
-                    })
-                });
-                const data = await res.json();
-                shortLink = data.data?.tiny_url || url;
-            } catch {
-                shortLink = url; // Si falla, usa el largo
-            }
-
-            navigator.clipboard.writeText(shortLink);
-            shareMsg = '¡Enlace copiado!';
-            setTimeout(() => shareMsg = '', 2000);
-        }
-
-        async function mostrarEnlace() {
-            if (!username) return alert('Primero ingresa un nickname.');
-            const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
-            if (!savedState) return alert('No hay progreso para compartir.');
-            const encoded = btoa(unescape(encodeURIComponent(savedState)));
-            const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
-            loadingShort = true;
-            showLinkModal = true;
-            // Acorta el enlace usando tinyurl API
-            try {
-                const res = await fetch(`https://api.tinyurl.com/create`, {
-                    method: 'POST',
-                    headers: {
-                        'accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        // Puedes obtener un token gratis en tinyurl.com/app/dev
-                        'Authorization': 'Bearer '
-                    },
-                    body: JSON.stringify({
-                        url,
-                        domain: 'tinyurl.com'
-                    })
-                });
-                const data = await res.json();
-                shortUrl = data.data?.tiny_url || url;
-            } catch {
-                shortUrl = url; // Si falla, muestra el largo
-            }
-            loadingShort = false;
-        }
 
         function exportarProgreso() {
             if (!username) return alert('Primero ingresa un nickname.');
@@ -342,6 +261,38 @@
         }));
     }
 }
+
+let shareMsg = '';
+let shortLink = '';
+
+async function generarEnlaceCompartir() {
+    if (!username) {
+        shareMsg = 'Primero ingresa un nickname.';
+        setTimeout(() => shareMsg = '', 2000);
+        return;
+    }
+    const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
+    if (!savedState) {
+        shareMsg = 'No hay progreso para compartir.';
+        setTimeout(() => shareMsg = '', 2000);
+        return;
+    }
+    const encoded = btoa(unescape(encodeURIComponent(savedState)));
+    const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
+
+    try {
+        const res = await fetch(`/api/tinyurl?url=${encodeURIComponent(url)}`);
+        const data = await res.json();
+        shortLink = data.link || url;
+        await navigator.clipboard.writeText(shortLink);
+        shareMsg = '¡Enlace copiado!';
+    } catch (e) {
+        shortLink = url;
+        await navigator.clipboard.writeText(shortLink);
+        shareMsg = 'No se pudo acortar, pero el enlace largo fue copiado.';
+    }
+    setTimeout(() => shareMsg = '', 2000);
+}
     </script>
 
     <main>
@@ -473,6 +424,11 @@
     <div class="menu-container" on:click|stopPropagation>
         {#if showMenu}
         <div class="menu-dropdown">
+           <!-- <label>
+                 <input type="checkbox" bind:checked={darkMode} /> -->
+         <!-- </div>
+            </label> -->
+            <!-- Puedes agregar más opciones aquí -->
             <ul style="list-style:none; padding:0; margin:0;">
     <li>
         <button on:click={exportarProgreso} style="width:100%;text-align:left;cursor:pointer;">
@@ -489,35 +445,18 @@
                 style="position:absolute;left:0;top:0;width:100%;height:100%;opacity:0;cursor:pointer;z-index:2;"
             />
         </label>
-<li>
-    <button on:click={compartirProgreso} style="width:100%;text-align:left;cursor:pointer;">
-        🔗 Compartir
-    </button>
-</li>
+    </li>
+    <li>
+        <button on:click={generarEnlaceCompartir} style="width:100%;text-align:left;cursor:pointer;">
+            📎 Compartir 
+        </button>
+    </li>
 </ul>
         </div>
     {/if}
 </div>
     </main>
 
-
-    {#if shareMsg}
-    <div class="share-toast">{shareMsg}</div>
-{/if}
-
-{#if showLinkModal}
-    <div class="modal-backdrop" on:click={() => showLinkModal = false}></div>
-    <div class="modal-link">
-        <h3>Tu enlace para compartir</h3>
-        {#if loadingShort}
-            <p>Generando enlace corto...</p>
-        {:else}
-            <input type="text" readonly value={shortUrl} style="width:100%;font-size:1em;" on:focus="{e => e.target.select()}" />
-            <button on:click={() => {navigator.clipboard.writeText(shortUrl); shareMsg='¡Enlace copiado!'; setTimeout(()=>shareMsg='',2000);}}>Copiar</button>
-        {/if}
-        <button class="close-modal" on:click={() => showLinkModal = false}>Cerrar</button>
-    </div>
-{/if}
 
     <style>
         /* Estilos generales para el cuerpo y la fuente principal */
@@ -976,51 +915,6 @@
             box-shadow: 0 2px 12px rgba(0,0,0,0.15);
             z-index: 4000;
             font-size: 1.1em;
-            animation: fadein 0.2s;
-        }
-        @keyframes fadein {
-            from { opacity: 0; transform: translateX(-50%) translateY(-10px);}
-            to   { opacity: 1; transform: translateX(-50%) translateY(0);}
-        }
-        .modal-backdrop {
-            position: fixed;
-            top:0; left:0; right:0; bottom:0;
-            background: rgba(0,0,0,0.2);
-            z-index: 5000;
-        }
-        .modal-link {
-            position: fixed;
-            top: 50%; left: 50%;
-            transform: translate(-50%,-50%);
-            background: #fff;
-            padding: 24px 18px 18px 18px;
-            border-radius: 12px;
-            box-shadow: 0 4px 32px rgba(0,0,0,0.18);
-            z-index: 5100;
-            min-width: 260px;
-            max-width: 90vw;
-            text-align: center;
-        }
-        .modal-link input[type="text"] {
-            margin-bottom: 12px;
-            padding: 6px;
-            border: 1px solid #bbb;
-            border-radius: 6px;
-        }
-        .modal-link button {
-            margin: 4px 4px 0 4px;
-            padding: 6px 16px;
-            border-radius: 6px;
-            border: 1px solid #bb9962;
-            background: #f8fafc;
-            color: #2c3e50;
-            cursor: pointer;
-            font-size: 1em;
-        }
-        .close-modal {
-            background: #eee;
-            color: #444;
-            border: none;
         }
 
 
@@ -1202,3 +1096,6 @@
         }
 
     </style>
+{#if shareMsg}
+    <div class="share-toast">{shareMsg}</div>
+{/if}
