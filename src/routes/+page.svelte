@@ -2,7 +2,6 @@
         import { onMount } from 'svelte';
         import { processedPokemonData } from '$lib/data/pms.js';
         import Img from '$lib/components/Img.svelte';
-        import { injectAnalytics } from '@vercel/analytics/sveltekit'
 
         let searchTerm = ''; // Variable reactiva para el texto de búsqueda
         let pokemonFamilies = []; // Contiene todos los datos de Pokémon, incluyendo el estado de hasShiny
@@ -68,26 +67,39 @@
         let shortUrl = '';
         let loadingShort = false;
 
-            async function compartirProgreso() {
-                if (!username) return alert('Primero ingresa un nickname.');
-                const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
-                if (!savedState) return alert('No hay progreso para compartir.');
-                const encoded = btoa(unescape(encodeURIComponent(savedState)));
-                const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
+        async function compartirProgreso() {
+            if (!username) return alert('Primero ingresa un nickname.');
+            const savedState = localStorage.getItem(`shinyPokemonList_${username}`);
+            if (!savedState) return alert('No hay progreso para compartir.');
+            const encoded = btoa(unescape(encodeURIComponent(savedState)));
+            const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
 
-                let shortLink = url;
-                try {
-                    const res = await fetch(`/api/bitly?url=${encodeURIComponent(url)}`);
-                    const data = await res.json();
-                    shortLink = data.link || url;
-                } catch {
-                    shortLink = url;
-                }
-
-                navigator.clipboard.writeText(shortLink);
-                shareMsg = '¡Enlace copiado!';
-                setTimeout(() => shareMsg = '', 2000);
+            // Intenta acortar el enlace
+            let shortLink = url;
+            try {
+                const res = await fetch(`https://api.tinyurl.com/create`, {
+                    method: 'POST',
+                    headers: {
+                        'accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        // Reemplaza con tu token de TinyURL
+                        'Authorization': 'Bearer AC2RGsGElSKZCHHB73CO9GQxYdP7xKD7z6rgm4dyl6NGrt3PZZvVyg4X9GSv'
+                    },
+                    body: JSON.stringify({
+                        url,
+                        domain: 'tinyurl.com'
+                    })
+                });
+                const data = await res.json();
+                shortLink = data.data?.tiny_url || url;
+            } catch {
+                shortLink = url; // Si falla, usa el largo
             }
+
+            navigator.clipboard.writeText(shortLink);
+            shareMsg = '¡Enlace copiado!';
+            setTimeout(() => shareMsg = '', 2000);
+        }
 
         async function mostrarEnlace() {
             if (!username) return alert('Primero ingresa un nickname.');
@@ -97,19 +109,25 @@
             const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
             loadingShort = true;
             showLinkModal = true;
+            // Acorta el enlace usando tinyurl API
             try {
-                const res = await fetch('https://api-ssl.bitly.com/v4/shorten', {
+                const res = await fetch(`https://api.tinyurl.com/create`, {
                     method: 'POST',
                     headers: {
-                        'Authorization': 'Bearer 4e4ed3dc0766d7f94e23685703acf02abde7669e',
-                        'Content-Type': 'application/json'
+                        'accept': 'application/json',
+                        'Content-Type': 'application/json',
+                        // Puedes obtener un token gratis en tinyurl.com/app/dev
+                        'Authorization': 'Bearer AC2RGsGElSKZCHHB73CO9GQxYdP7xKD7z6rgm4dyl6NGrt3PZZvVyg4X9GSv'
                     },
-                    body: JSON.stringify({ long_url: url })
+                    body: JSON.stringify({
+                        url,
+                        domain: 'tinyurl.com'
+                    })
                 });
                 const data = await res.json();
-                shortUrl = data.link || url;
+                shortUrl = data.data?.tiny_url || url;
             } catch {
-                shortUrl = url;
+                shortUrl = url; // Si falla, muestra el largo
             }
             loadingShort = false;
         }
