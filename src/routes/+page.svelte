@@ -1,5 +1,3 @@
-ya con la mandera de importar y exportar 
-
 <script>
         import { onMount } from 'svelte';
         import { processedPokemonData } from '$lib/data/pms.js';
