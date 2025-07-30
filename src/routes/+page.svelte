@@ -104,25 +104,19 @@
             const url = `${location.origin}${location.pathname}?shiny=${encoded}`;
             loadingShort = true;
             showLinkModal = true;
-            // Acorta el enlace usando tinyurl API
             try {
-                const res = await fetch(`https://api.tinyurl.com/create`, {
+                const res = await fetch('https://api-ssl.bitly.com/v4/shorten', {
                     method: 'POST',
                     headers: {
-                        'accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        // Puedes obtener un token gratis en tinyurl.com/app/dev
-                        'Authorization': 'Bearer AC2RGsGElSKZCHHB73CO9GQxYdP7xKD7z6rgm4dyl6NGrt3PZZvVyg4X9GSv'
+                        'Authorization': 'Bearer 4e4ed3dc0766d7f94e23685703acf02abde7669e',
+                        'Content-Type': 'application/json'
                     },
-                    body: JSON.stringify({
-                        url,
-                        domain: 'tinyurl.com'
-                    })
+                    body: JSON.stringify({ long_url: url })
                 });
                 const data = await res.json();
-                shortUrl = data.data?.tiny_url || url;
+                shortUrl = data.link || url;
             } catch {
-                shortUrl = url; // Si falla, muestra el largo
+                shortUrl = url;
             }
             loadingShort = false;
         }
