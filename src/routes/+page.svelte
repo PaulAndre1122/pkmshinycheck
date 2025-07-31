@@ -289,7 +289,24 @@
 
     }
 
-    </script>
+// ...otros imports...
+const megaIcon = "/megaevo.webp"; // o el nombre real de tu archivo
+const gigaIcon = "/gmax.webp"; // icono de gigamax
+
+function renderName(name) {
+    if (!name) return "";
+    // Reemplaza (M) por el icono
+    return name
+    .replace(
+        /\(M\)/g,
+        `<img src="${megaIcon}" alt="Mega" style="width:1.2em;vertical-align:middle;display:inline-block;" />`
+    )
+    .replace(
+        /\(G\)/g,
+        `<img src="${gigaIcon}" alt="Gigamax" style="width:1.2em;vertical-align:middle;display:inline-block;" />`
+    );
+}
+</script>
 
     <main>
         <h1> Pokémon Shiny Check List✨</h1>
@@ -373,7 +390,7 @@
                         >
                             <span class="dex-number">#{individualPm.dex}</span>
                             <Img pm={individualPm} />
-                            <p>{individualPm.displayName}</p>
+                            <p>{@html renderName(individualPm.displayName)}</p>
                         </div>
                     {/each}
                 </div>
