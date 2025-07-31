@@ -9,6 +9,32 @@
             let darkMode = false;
             let showMenu = false;
         
+        let showTutorial = false;
+        let tutorialStep = 0;
+
+        const tutorialSteps = [
+            {
+                title: "¡Bienvenido a Pokémon Shiny Check List!",
+                text: "Aquí puedes llevar el control de los Pokémon shiny que has conseguido. Marca cada shiny tocando su imagen."
+            },
+            {
+                title: "Buscar Pokémon",
+                text: "Usa la barra de búsqueda para encontrar rápidamente cualquier Pokémon por nombre, número o forma."
+            },
+            {
+                title: "Filtrar por Generación",
+                text: "Puedes filtrar los Pokémon por generación usando los checkboxes de arriba."
+            },
+            {
+                title: "Guardar tu progreso",
+                text: "Tu progreso se guarda automáticamente en tu navegador por medio de tu nickname. Puedes exportar o importar tu progreso desde el menú."
+            },
+            {
+                title: "¡Listo!",
+                text: "¡Disfruta! Puedes volver a ver este tutorial desde el menú."
+            }
+        ];
+            
 
         const LOCAL_STORAGE_KEY = 'shinyPokemonList'; // Clave para guardar en localStorage
 
@@ -260,7 +286,9 @@
             }))
         }));
     }
-}
+
+    }
+
     </script>
 
     <main>
@@ -414,10 +442,34 @@
             />
         </label>
     </li>
+    <li>
+        <button on:click={() => { showTutorial = true; tutorialStep = 0; }}>
+            ℹ️️ Tutorial
+        </button>
+    </li>
 </ul>
         </div>
     {/if}
 </div>
+
+    {#if showTutorial}
+        <div class="tutorial-backdrop" on:click={() => showTutorial = false}></div>
+        <div class="tutorial-modal" role="dialog" aria-modal="true" aria-label="Tutorial">
+            <h2>{tutorialSteps[tutorialStep].title}</h2>
+            <p>{tutorialSteps[tutorialStep].text}</p>
+            <div class="tutorial-controls">
+            {#if tutorialStep > 0}
+                <button on:click={() => tutorialStep--}>Anterior</button>
+            {/if}
+            {#if tutorialStep < tutorialSteps.length - 1}
+                <button on:click={() => tutorialStep++}>Siguiente</button>
+            {:else}
+                <button on:click={() => showTutorial = false}>Cerrar</button>
+            {/if}
+            </div>
+        </div>
+        {/if}
+
     </main>
 
 
@@ -884,6 +936,44 @@
             animation: shiny-glow 0.7s;
         }
 
+        .tutorial-backdrop {
+        position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0,0,0,0.4);
+        z-index: 4000;
+        }
+        .tutorial-modal {
+        position: fixed;
+        top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+        background: #fff;
+        color: #222;
+        padding: 32px 24px;
+        border-radius: 16px;
+        box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        z-index: 4100;
+        max-width: 90vw;
+        width: 350px;
+        text-align: center;
+        }
+        .tutorial-controls {
+        margin-top: 24px;
+        display: flex;
+        justify-content: center;
+        gap: 16px;
+        }
+        .tutorial-modal button {
+        padding: 8px 18px;
+        border-radius: 8px;
+        border: none;
+        background: #2980b9;
+        color: #fff;
+        font-size: 1em;
+        cursor: pointer;
+        }
+        .tutorial-modal button:hover {
+        background: #21618c;
+        }
+
         @media (max-width: 700px) {
             .forms-container {
                 display: flex;
@@ -1045,3 +1135,4 @@
         }
 
     </style>
+
