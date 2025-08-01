@@ -5352,7 +5352,7 @@
   },
   {
     "dex": 382,
-    "type": "_p",
+    "type": "_prim",
     "shiny_released": true,
     "aa_fn": "pm382.fPRIMAL",
     "style": "--w: 200%; --t: -40%; --l: -50%;",
@@ -5367,7 +5367,7 @@
   },
   {
     "dex": 383,
-    "type": "_p",
+    "type": "_prim",
     "released_date": "2023/02/18",
     "aa_fn": "pm383.fPRIMAL",
     "style": "--w:120%;--t:0;--l:0;",
@@ -6413,30 +6413,30 @@
   {
     "dex": 488,
     "shiny_released": true,
-    "family": "Cresseliamaphandmore",
+    "family": "Cresseliaadndarkmore",
     "fn": "pm488.s.icon.png"
   },
   {
     "dex": 489,
-    "shiny_released": true,
+    "shiny_released": 0,
     "family": "Cresseliamaphandmore",
     "fn": "pm489.s.icon.png"
   },
   {
     "dex": 490,
-    "shiny_released": true,
+    "shiny_released": 0,
     "family": "Cresseliamaphandmore",
     "fn": "pm490.s.icon.png"
   },
   {
     "dex": 491,
     "shiny_released": true,
-    "family": "Cresseliamaphandmore",
+    "family": "Cresseliaadndarkmore",
     "fn": "pm491.s.icon.png"
   },
   {
     "dex": 492,
-    "family": "Shaymin",
+    "family": "Cresseliaadndarkmore",
     "released_date": "2024/02/24",
     "isotope": "_s02",
     "aa_fn": "pm492.fLAND",
@@ -6445,7 +6445,7 @@
   },
   {
     "dex": 492,
-    "family": "Shaymin",
+    "family": "Cresseliaadndarkmore",
     "released_date": "2024/02/24",
     "isotope": "_s01",
     "aa_fn": "pm492.fSKY",
@@ -9739,6 +9739,28 @@
     "aa_fn": "pm998",
     "family": "Frigibax",
     "fn": "pm998.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 999,
+    "released_date": "2025/05/29",
+    "family": "Gimmighoul ",
+    "fn": "pm999.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 1000,
+    "released_date": "2025/05/29",
+    "family": "Gimmighoul ",
+    "fn": "pm1000.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 999,
+    "released_date": "2025/05/29",
+    "family": "Gimmighoul ",
+    "isotope": "_9years",
+    "fn": "pm999.f9year_coin.s.icon.png",
     "shiny_released": true
   }
 ]

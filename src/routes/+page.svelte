@@ -292,18 +292,28 @@
 // ...otros imports...
 const megaIcon = "/megaevo.webp"; // o el nombre real de tu archivo
 const gigaIcon = "/gmax.webp"; // icono de gigamax
+const alfaIcon = "/alfa.webp"; // icono de alfa
+const omegaIcon = "/omega.webp"; // icono de omega
 
 function renderName(name) {
     if (!name) return "";
     // Reemplaza (M) por el icono
     return name
     .replace(
-        /\(M\)/g,
+        /\(MEGA\)/g,
         `<img src="${megaIcon}" alt="Mega" style="width:1.2em;vertical-align:middle;display:inline-block;" />`
     )
     .replace(
-        /\(G\)/g,
+        /\(GIGA\)/g,
         `<img src="${gigaIcon}" alt="Gigamax" style="width:1.2em;vertical-align:middle;display:inline-block;" />`
+    )
+    .replace(
+        /\(PriA\)/g,
+        `<img src="${alfaIcon}" alt="Primal Alfa" style="width:1.5em;vertical-align:middle;display:inline-block;" />`
+    )
+    .replace(
+        /\(PriO\)/g,
+        `<img src="${omegaIcon}" alt="Primal Omega" style="width:1.5em;vertical-align:middle;display:inline-block;" />`
     );
 }
 </script>
