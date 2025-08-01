@@ -644,15 +644,16 @@ function renderName(name) {
             display: flex;
             overflow-x: auto; /* Permite el scroll horizontal */
             width: 100%;/* esacio utilizable */
-            padding-bottom: 10px; /* Espacio para la barra de scroll */
+            padding: 2px 0; /* Aumenta el padding vertical */
             gap: 10px; /* Espacio entre las formas individuales */
             scroll-snap-type: x proximity; /* Para que se "pegue" al scroll */
             -webkit-overflow-scrolling: touch; /* Suaviza el scroll en iOS */
-        /* Esconder la barra de scroll, pero aún así se puede arrastrar */
+            /* Esconder la barra de scroll, pero aún así se puede arrastrar */
             scrollbar-width: auto; /* Firefox */
             -ms-overflow-style: none;  /* Internet Explorer 10+ */
             justify-content: flex-start; /* <-- Cambia a flex-start */
             align-items: center; /* Centra los elementos verticalmente (útil si las formas tienen diferentes alturas) */
+            overflow: visible; /* Permite que el brillo se vea fuera del contenedor */
         }
 
         .forms-container.centered {
@@ -728,6 +729,7 @@ function renderName(name) {
         /* Estilo cuando una forma es marcada como "shiny y el tamaño del fondo verde" */
         .individual-form.marked {
             background-color: #d4edda; /* Verde claro */
+            margin: 2px;
             border-color: #28a745; /* Verde más oscuro */
             box-shadow: 0 0 10px rgba(40, 167, 69, 0.5); /* Sombra verde */
             transform: scale(1.00); /* Ligeramente más grande cuando está marcado */
