@@ -10,8 +10,22 @@
     "dex": 1,
     "shiny_released": true,
     "isotope": "_partyhat",
-    "family": "Bulbasaur_f19",
+    "family": "Bulbasaur_hat",
     "fn": "pm1.cJAN_2020_NOEVOLVE.s.icon.png"
+  },
+  {
+    "dex": 2,
+    "shiny_released": true,
+    "isotope": "_partyhat",
+    "family": "Bulbasaur_hat",
+    "fn": "pm2.cJAN_2020_NOEVOLVE.s.icon.png"
+  },
+  {
+    "dex": 3,
+    "shiny_released": true,
+    "isotope": "_partyhat",
+    "family": "Bulbasaur_hat",
+    "fn": "pm3.cJAN_2020_NOEVOLVE.s.icon.png"
   },
   {
     "dex": 1,
@@ -620,6 +634,170 @@
   },
   {
     "dex": 25,
+    "isotope": "_pikacostum69",
+    "family": "Pikachu_gotour_25p",
+    "fn": "pm25.fGFpres_2025_A.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum70",
+    "family": "Pikachu_gotour_25p",
+    "fn": "pm25.fGFpres_2025_B.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum71",
+    "family": "Pikachu_gotour_25p",
+    "fn": "pm25.fGFpres_2025_C.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum72",
+    "family": "Pikachu_gotour_2025",
+    "fn": "pm25.fGoFest_2025_A.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum73",
+    "family": "Pikachu_gotour_2025",
+    "fn": "pm25.fGoFest_2025_B.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum74",
+    "family": "Pikachu_gotour_2025",
+    "fn": "pm25.fGoFest_2025_C.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum42",
+    "released_date": "2024/02/17",
+    "aa_fn": "pm25.fGOTOUR_2024_A",
+    "family": "Pikachu_gotour_24",
+    "fn": "pm25.fGOTOUR_2024_A.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum43",
+    "released_date": "2024/02/17",
+    "aa_fn": "pm25.fGOTOUR_2024_A_02",
+    "family": "Pikachu_gotour_24",
+    "fn": "pm25.fGOTOUR_2024_A_02.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum44",
+    "released_date": "2024/02/17",
+    "aa_fn": "pm25.fGOTOUR_2024_B",
+    "family": "Pikachu_gotour_24",
+    "fn": "pm25.fGOTOUR_2024_B.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum45",
+    "released_date": "2024/02/17",
+    "aa_fn": "pm25.fGOTOUR_2024_B_02",
+    "family": "Pikachu_gotour_24",
+    "fn": "pm25.fGOTOUR_2024_B_02.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum46",
+    "released_date": "2025/02/21",
+    "aa_fn": "pm25.fGOTOUR_2025_A",
+    "family": "Pikachu_gotour_25",
+    "fn": "pm25.fGOTOUR_2025_A.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum47",
+    "released_date": "2025/02/21",
+    "aa_fn": "pm25.fGOTOUR_2025_A_02",
+    "family": "Pikachu_gotour_25",
+    "fn": "pm25.fGOTOUR_2025_A_02.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum48",
+    "released_date": "2025/02/21",
+    "aa_fn": "pm25.fGOTOUR_2025_B",
+    "family": "Pikachu_gotour_25",
+    "fn": "pm25.fGOTOUR_2025_B.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum49",
+    "released_date": "2025/02/21",
+    "aa_fn": "pm25.fGOTOUR_2025_B_02",
+    "family": "Pikachu_gotour_25",
+    "fn": "pm25.fGOTOUR_2025_B_02.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum51",
+    "released_date": "2023/08/04",
+    "aa_fn": "pm25.fSUMMER_2023_A",
+    "name_suffix": "(A)",
+    "family": "Pikachu_28sun",
+    "fn": "pm25.fSUMMER_2023_A.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum52",
+    "released_date": "2023/08/04",
+    "aa_fn": "pm25.fSUMMER_2023_B",
+    "name_suffix": "(B)",
+    "family": "Pikachu_28sun",
+    "fn": "pm25.fSUMMER_2023_B.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum53",
+    "released_date": "2023/08/04",
+    "aa_fn": "pm25.fSUMMER_2023_C",
+    "name_suffix": "(C)",
+    "family": "Pikachu_28sun",
+    "fn": "pm25.fSUMMER_2023_C.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum54",
+    "released_date": "2023/08/04",
+    "aa_fn": "pm25.fSUMMER_2023_D",
+    "name_suffix": "(D)",
+    "family": "Pikachu_28sun",
+    "fn": "pm25.fSUMMER_2023_D.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
+    "isotope": "_pikacostum55",
+    "released_date": "2023/08/04",
+    "aa_fn": "pm25.fSUMMER_2023_E",
+    "name_suffix": "(E)",
+    "family": "Pikachu_28sun",
+    "fn": "pm25.fSUMMER_2023_E.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 25,
     "isotope": "_pikacostum13",
     "shiny_released": true,
     "family": "Pikachu_10",
@@ -866,128 +1044,6 @@
     "aa_fn": "pm25.fADVENTURE_HAT_2020",
     "family": "Pikachu_t02",
     "fn": "pm25.fADVENTURE_HAT_2020.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum42",
-    "released_date": "2024/02/17",
-    "aa_fn": "pm25.fGOTOUR_2024_A",
-    "family": "Pikachu_gotour_24",
-    "fn": "pm25.fGOTOUR_2024_A.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum43",
-    "released_date": "2024/02/17",
-    "aa_fn": "pm25.fGOTOUR_2024_A_02",
-    "family": "Pikachu_gotour_24",
-    "fn": "pm25.fGOTOUR_2024_A_02.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum44",
-    "released_date": "2024/02/17",
-    "aa_fn": "pm25.fGOTOUR_2024_B",
-    "family": "Pikachu_gotour_24",
-    "fn": "pm25.fGOTOUR_2024_B.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum45",
-    "released_date": "2024/02/17",
-    "aa_fn": "pm25.fGOTOUR_2024_B_02",
-    "family": "Pikachu_gotour_24",
-    "fn": "pm25.fGOTOUR_2024_B_02.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum46",
-    "released_date": "2025/02/21",
-    "aa_fn": "pm25.fGOTOUR_2025_A",
-    "family": "Pikachu_gotour_25",
-    "fn": "pm25.fGOTOUR_2025_A.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum47",
-    "released_date": "2025/02/21",
-    "aa_fn": "pm25.fGOTOUR_2025_A_02",
-    "family": "Pikachu_gotour_25",
-    "fn": "pm25.fGOTOUR_2025_A_02.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum48",
-    "released_date": "2025/02/21",
-    "aa_fn": "pm25.fGOTOUR_2025_B",
-    "family": "Pikachu_gotour_25",
-    "fn": "pm25.fGOTOUR_2025_B.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum49",
-    "released_date": "2025/02/21",
-    "aa_fn": "pm25.fGOTOUR_2025_B_02",
-    "family": "Pikachu_gotour_25",
-    "fn": "pm25.fGOTOUR_2025_B_02.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum51",
-    "released_date": "2023/08/04",
-    "aa_fn": "pm25.fSUMMER_2023_A",
-    "name_suffix": "(A)",
-    "family": "Pikachu_28sun",
-    "fn": "pm25.fSUMMER_2023_A.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum52",
-    "released_date": "2023/08/04",
-    "aa_fn": "pm25.fSUMMER_2023_B",
-    "name_suffix": "(B)",
-    "family": "Pikachu_28sun",
-    "fn": "pm25.fSUMMER_2023_B.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum53",
-    "released_date": "2023/08/04",
-    "aa_fn": "pm25.fSUMMER_2023_C",
-    "name_suffix": "(C)",
-    "family": "Pikachu_28sun",
-    "fn": "pm25.fSUMMER_2023_C.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum54",
-    "released_date": "2023/08/04",
-    "aa_fn": "pm25.fSUMMER_2023_D",
-    "name_suffix": "(D)",
-    "family": "Pikachu_28sun",
-    "fn": "pm25.fSUMMER_2023_D.s.icon.png",
-    "shiny_released": true
-  },
-  {
-    "dex": 25,
-    "isotope": "_pikacostum55",
-    "released_date": "2023/08/04",
-    "aa_fn": "pm25.fSUMMER_2023_E",
-    "name_suffix": "(E)",
-    "family": "Pikachu_28sun",
-    "fn": "pm25.fSUMMER_2023_E.s.icon.png",
     "shiny_released": true
   },
   {
@@ -1602,6 +1658,16 @@
     "family": "Machop",
     "released_date": "2019/03/05",
     "fn": "pm68.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 68,
+    "isotope": "_giga",
+    "family": "Machop",
+    "name_suffix": "(G)",
+    "aa_fn": "pm3.fGIGANTAMAX",
+    "released_date": "2024/10/26",
+    "fn": "pm68.fGIGANTAMAX.s.icon.png",
     "shiny_released": true
   },
   {
@@ -6773,6 +6839,14 @@
     "fn": "pm549.s.icon.png"
   },
   {
+    "dex": 549,
+    "shiny_released": true,
+    "style": "--l:10%; --t:10%",
+    "isotope": "_his",
+    "family": "Petilil",
+    "fn": "pm549.fHisuian.s.icon.png"
+  },
+  {
     "dex": 550,
     "released_date": "2024/02/24",
     "aa_fn": "pm550.fWHITE_STRIPED",
@@ -9184,20 +9258,44 @@
   {
     "dex": 819,
     "shiny_released": true,
-    "family": "Skwovetandwoloo",
+    "family": "Skwovet",
     "fn": "pm819.s.icon.png"
   },
   {
     "dex": 820,
     "shiny_released": true,
-    "family": "Skwovetandwoloo",
+    "family": "Skwovet",
     "fn": "pm820.s.icon.png"
+  },
+  {
+    "dex": 821,
+    "shiny_released": true,
+    "family": "Rookidee",
+    "fn": "pm821.s.icon.png"
+  },
+  {
+    "dex": 822,
+    "shiny_released": true,
+    "family": "Rookidee",
+    "fn": "pm822.s.icon.png"
+  },
+  {
+    "dex": 823,
+    "shiny_released": true,
+    "family": "Rookidee",
+    "fn": "pm823.s.icon.png"
   },
   {
     "dex": 831,
     "shiny_released": true,
-    "family": "Skwovetandwoloo",
+    "family": "wooloo_24",
     "fn": "pm831.s.icon.png"
+  },
+  {
+    "dex": 832,
+    "shiny_released": true,
+    "family": "wooloo_24",
+    "fn": "pm832.s.icon.png"
   },
   {
     "dex": 831,
@@ -9207,12 +9305,6 @@
     "family": "wooloo_24",
     "fn": "pm831.cWINTER_2024.s.icon.png",
     "shiny_released": true
-  },
-  {
-    "dex": 832,
-    "shiny_released": true,
-    "family": "Skwovetandwoloo",
-    "fn": "pm832.s.icon.png"
   },
   {
     "dex": 832,
@@ -9300,6 +9392,13 @@
     "shiny_released": true,
     "family": "Falinks",
     "fn": "pm870.s.icon.png"
+  },
+  {
+    "dex": 870,
+    "isotope": "_falinkscutom",
+    "family": "Falinks",
+    "fn": "pm870.gofest_2025.s.icon.png",
+    "shiny_released": true
   },
   {
     "dex": 888,
@@ -9551,6 +9650,22 @@
     "family": "Charcadet",
     "released_date": "2025/03/05",
     "fn": "pm937.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 960,
+    "released_date": "2023/09/10",
+    "aa_fn": "pm962",
+    "family": "Wiglett",
+    "fn": "pm960.s.icon.png",
+    "shiny_released": true
+  },
+  {
+    "dex": 961,
+    "released_date": "2023/09/10",
+    "aa_fn": "pm962",
+    "family": "Wiglett",
+    "fn": "pm961.s.icon.png",
     "shiny_released": true
   },
   {
